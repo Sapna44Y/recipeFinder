@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import RecipeCard from '../components/RecipeCard';
 import LoadingSpinner from '../components/LoadingSpinner';
+import { FaArrowLeft } from 'react-icons/fa';
 
 const Favorites = () => {
   const [favorites, setFavorites] = useState([]);
@@ -27,6 +29,15 @@ const Favorites = () => {
 
   return (
     <div className="container mx-auto px-4 py-8">
+      {/* Back to Recipes button */}
+      <Link
+        to="/"
+        className="inline-flex items-center text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-300 mb-6 transition-colors duration-300"
+      >
+        <FaArrowLeft className="mr-2" />
+        Go back to Recipes
+      </Link>
+
       <h1 className="text-3xl font-bold text-center text-gray-800 dark:text-white mb-8">
         Your Favorite Recipes
       </h1>

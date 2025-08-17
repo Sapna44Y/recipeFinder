@@ -1,17 +1,15 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
-import { FaArrowLeft, FaHeart, FaRegHeart, FaYoutube } from 'react-icons/fa';
+import { FaArrowLeft, FaYoutube } from 'react-icons/fa';
 import { BiTime, BiDish } from 'react-icons/bi';
 import LoadingSpinner from '../components/LoadingSpinner';
-import useFavorites from "../hook/useFavorites";
 
 const RecipeDetails = () => {
   const { id } = useParams();
   const [recipe, setRecipe] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const { isFavorite, toggleFavorite } = useFavorites(id);
   const [servings, setServings] = useState(1);
 
   useEffect(() => {
@@ -36,12 +34,6 @@ const RecipeDetails = () => {
     fetchRecipeDetails();
   }, [id]);
 
-  const handleFavoriteClick = () => {
-    if (recipe) {
-      toggleFavorite(recipe);
-    }
-  };
-
   const adjustServings = (operation) => {
     if (operation === 'increase') {
       setServings(servings + 1);
@@ -56,7 +48,7 @@ const RecipeDetails = () => {
 
   if (error) {
     return (
-      <div className="container mx-auto px-4 py-8 text-center">
+      <div className="container mx-auto px-6 py-16 text-center">
         <p className="text-red-500 dark:text-red-400">{error}</p>
         <Link
           to="/"
@@ -70,7 +62,7 @@ const RecipeDetails = () => {
 
   if (!recipe) {
     return (
-      <div className="container mx-auto px-4 py-8 text-center">
+      <div className="container mx-auto px-4 py-16 text-center">
         <p className="text-gray-600 dark:text-gray-400">Recipe not found</p>
         <Link
           to="/"
@@ -91,7 +83,7 @@ const RecipeDetails = () => {
   const youtubeId = recipe.strYoutube ? getYouTubeId(recipe.strYoutube) : null;
 
   return (
-  <div className="container mx-auto px-4 sm:px-6 py-6 sm:py-8 max-w-6xl">
+  <div className="container mx-auto px-4 sm:px-6  py-6 sm:py-8 max-w-6xl">
     {/* Back Button */}
     <Link
       to="/"
@@ -99,6 +91,7 @@ const RecipeDetails = () => {
     >
       <FaArrowLeft className="mr-2" /> Back to recipes
     </Link>
+      
 
     {/* Main Card */}
     <div className="bg-white dark:bg-gray-800 rounded-xl sm:rounded-2xl shadow-lg sm:shadow-2xl overflow-hidden border border-gray-200 dark:border-gray-700">
@@ -106,26 +99,13 @@ const RecipeDetails = () => {
       <div className="flex flex-col lg:flex-row gap-4 sm:gap-6 md:gap-8 p-4 sm:p-6">
         {/* Left Side - Image */}
         <div className="lg:w-1/2 flex justify-center items-center">
-          <div className="relative w-full max-w-lg group">
-            <img
+           <img
               src={recipe.strMealThumb}
               alt={recipe.strMeal}
               className="w-full h-auto max-h-[400px] sm:max-h-[550px] object-cover rounded-lg sm:rounded-xl shadow-md sm:shadow-lg border-2 sm:border-4 border-white dark:border-gray-700 
               transform group-hover:scale-[1.02] transition-all duration-500 ease-in-out"
             />
-            <button
-              onClick={handleFavoriteClick}
-              className={`absolute top-2 sm:top-4 right-2 sm:right-4 p-2 sm:p-3 rounded-full ${
-                isFavorite
-                  ? 'text-red-500 bg-white/90 dark:bg-gray-800/90'
-                  : 'text-gray-400 dark:text-gray-500 bg-white/80 dark:bg-gray-800/80'
-              } shadow-md sm:shadow-lg hover:scale-110 transition-transform duration-300`}
-              aria-label={isFavorite ? 'Remove from favorites' : 'Add to favorites'}
-            >
-              {isFavorite ? <FaHeart size={20} className="sm:w-6 sm:h-6" /> : <FaRegHeart size={20} className="sm:w-6 sm:h-6" />}
-            </button>
-            <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent rounded-lg sm:rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-          </div>
+          
         </div>
 
         {/* Right Side - Details */}
@@ -270,3 +250,10 @@ const RecipeDetails = () => {
 };
 
 export default RecipeDetails;
+
+
+
+
+
+
+
