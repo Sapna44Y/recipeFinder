@@ -28,10 +28,7 @@ const RecipeCard = ({ recipe }) => {
           />
           {/* Favorite Button */}
           <button
-            onClick={(e) => {
-              e.preventDefault();
-              handleFavoriteClick();
-            }}
+            onClick={handleFavoriteClick}
             className={`absolute top-2 right-2 p-1.5 sm:p-2 rounded-full ${
               isFavorite ? 'text-red-500' : 'text-gray-300 dark:text-gray-500'
             } bg-white dark:bg-gray-800 shadow-md hover:scale-110 transition-transform`}
