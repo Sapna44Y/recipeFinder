@@ -1,0 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom dark mode transitions */
+html.dark {
+  @apply bg-gray-900 text-gray-100;
+}
+
+/* Modal styles for dialog element */
+dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-box {
+  max-height: calc(100vh - 5em);
+}
+
+/* Animation for modal */
+dialog[open] {
+  animation: fadeIn 0.3s ease normal;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
